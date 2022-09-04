@@ -1,0 +1,62 @@
+JMP start  ;This jumps to "start" without any condition
+  
+; Variables
+var1: A9 ; Number 169
+var2: 2B ; Number 43 
+var3: AF ; Number 175 
+var4: D1 ; Number 209 
+out1: 0  ; Memory location
+out2: 0  ; Memory location
+out3: 0  ; Memory location
+out4: 0  ; Memory location
+out5: 0  ; Memory location
+out6: 0 ; Memory location
+out7: 0 ; Memory location
+
+start:    ;label 'start'. This is where "JMP start" jumps to
+LDAC var4 ; Load the var(D1) into Accumulator
+NOT       ; Not ACC and store in Accumulator
+STAC out1; stores the value of ACC to out1
+LDAC var3 ; Load the var3(AF) into Accumulator
+INC       ; Add 1 to accumulator and store in Accumulator
+STAC out2; stores the value of ACC to out2
+LDAC var1 ; Load the var1(A9) into Accumulator
+ASHR      ; Shift accumulator 1 and store in Accumulator
+STAC out3 ; stores the value of ACC to out3
+LDAC var1 ; Load the var1(A9) into Accumulator
+MVAC     ; Moves content of Accumulator to R
+LDAC var2 ; Load the var2(2B) into Accumulator	
+OR        ; OR ACC and R and store in Accumulator
+STAC out4 ; stores the value of ACC to out4
+LDAC var1 ; Load the var1(A9) into Accumulator
+MVAC     ; Moves content of Accumulator to R
+LDAC var2 ; Load the var2(2B) into Accumulator
+AND       ; AND accumulator and R and store in Accumulator
+STAC out5 ; stores the value of ACC to out5
+LDAC var2 ; Load the var2(2B) into Accumulator
+MVAC     ; Moves content of Accumulator to R
+LDAC var1 ; Load the var1(A9) into Accumulator
+SUB       ; Substract Accumulator and R and store in Accumulator
+STAC out6 ; stores the value of ACC to out6
+LDAC var1 ; Load the var1(A9) into Accumulator
+MVAC     ; Moves content of Accumulator to R
+LDAC var2 ; Load the var2(2B) into Accumulator
+ADD       ; Adds Accumulator and R and store in Accumulator
+STAC out7 ; stores the value of ACC to out7
+
+LDAC out7 ; Load content in out7 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+LDAC out6 ; Load content in out6 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+LDAC out5 ; Load content in out5 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+LDAC out4 ; Load content in out4 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+LDAC out3 ; Load content in out3 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+LDAC out2; Load content in out2 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+LDAC out1; Load content in out1 to Accumulator
+OUT       ; Moves Accumulator data to Output Register(OUTR)
+
+HALT      ; Stops execution

@@ -1,0 +1,52 @@
+JMP start
+
+;Variables
+
+r: 7     ;r is the radius
+pi: 3    ;pi which is also going to be a counter for piloop
+dec: 1   ;used as a decrement value to the counters
+rcount: 0 ; this will be the counter to loop though the raidus r amount of time
+rsquare: 0 ; this will hold the value of r^2 as it loops thoughout
+area: 0   ; this will hold the final area of the circle
+
+
+start:       ;this is the label "start". the JMP start starts from here
+LDAC r       ;loads the value of r(radius) to Accumulator
+STAC rcount  ;then it stores that value to rcount
+MVAC         ;Move content of Accumulator into R register
+JMP rloop    ;This jumps into the rloop without any conditons
+
+finish:   ;end lines to display the result
+LDAC area ;loads the area to the accumulator to be displayed next
+OUT     ;send the conenct of accumulator(area) to out register to be displayed as the result
+HALT   ;Stop execution
+
+rloop:   ;loop to get r^2 value
+LDAC r   ;loads the r(radius) into accumulator
+MVAC     ;moves the content of accumulator(radius) into r register
+LDAC rsquare  ;loads the value of rsquare into accumulator
+ADD           ;adds the value of the radius to rsquare and stores it there
+STAC rsquare  ;stores the content of the accumulator into the rsquare
+LDAC dec      ;loads dec(1) into accumulator
+MVAC          ;move the content of accumulator(1) into r register
+LDAC rcount   ;load the current value of rcount into accumulator
+SUB           ;subtract current value of rcount - dec(1) and store it in accumulator
+STAC rcount   ;store the value of current accumulator into rcount
+JMPZ piloop   ;when z is 1(when accumulator is 0) jumps into the piloop to solve the other part of the problem
+JMP rloop     ;jumps to the rloop until it jumps to piloop
+
+piloop:       ;this loop solves the rest of the area equation after getting r^2
+LDAC rsquare  ;loads the final value of rsquare to the accumulator
+MVAC          ;moves the final value of rsquare to R register
+LDAC area     ;loads the current area value to the accumulator
+ADD           ;Then adds the the area + rsquare and stores it in the accumulator
+STAC area     ;then it stores that accumulator value into area memory
+LDAC dec      ;loads dec(1) into the accumulator
+MVAC          ;moves the dec into the R register
+LDAC pi       ;looads the current value of pi into the accumulator
+SUB           ;subtracts pi from accumulator - dec(1) in R register and stores it in the accumulator
+STAC pi       ;than stores the current value of accumulator into pi
+JMPZ finish   ;when z is 1(when accumulator is 0) this jumps into finish
+JMP piloop    ;this jumps back to piloop until pi is 0 which means the accumulator is 0 and z is 1
+
+
